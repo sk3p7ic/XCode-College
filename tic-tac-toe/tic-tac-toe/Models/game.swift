@@ -51,7 +51,7 @@ class TTTGame {
             }
             var didBreak = false
             for r in 0..<3 {
-                if board[c][r] != topmostPlayer {
+                if board[r][c] != topmostPlayer {
                     didBreak = true
                     break
                 }
