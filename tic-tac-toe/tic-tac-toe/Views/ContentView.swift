@@ -8,13 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var game: TTTGame = TTTGame()
+    @ObservedObject var game: TTTGame = TTTGame()
+    @State private var scores: [UInt8] = [0, 0]
+    
+    func handleGameReset() {
+        game.resetGame()
+    }
     
     var body: some View {
         VStack {
             Text("Tic Tac Toe")
                 .font(.title)
-            BoardView(game: game)
+            BoardView(game: game, resetHandler: handleGameReset)
         }
         .padding()
     }

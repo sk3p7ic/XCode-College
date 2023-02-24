@@ -11,9 +11,11 @@ enum GameResult {
     case none, win, draw
 }
 
-class TTTGame {
-    public var board: [[Int8]] = [[-1, -1, -1], [-1, -1, -1], [-1, -1, -1]]
-    public var currentPlayer: Int8 = 0
+class TTTGame: ObservableObject {
+    @Published public var board: [[Int8]] = [[-1, -1, -1], [-1, -1, -1], [-1, -1, -1]]
+    @Published public var currentPlayer: Int8 = 0
+    @Published public var gameDidEnd: Bool = false
+    @Published public var gameState: GameResult = GameResult.none
     
     func doUpdateTile(_ row: Int, _ col: Int) {
         if (board[row][col] != -1) {
@@ -21,8 +23,10 @@ class TTTGame {
         }
         board[row][col] = currentPlayer
         currentPlayer = (currentPlayer == 0) ? 1 : 0
-        var didWin = checkForWinner()
-        print(didWin)
+        let status = checkForWinner()
+        gameDidEnd = status == GameResult.win || status == GameResult.draw
+        print(gameDidEnd)
+        gameState = status
     }
     
     func checkForWinner() -> GameResult {
@@ -72,5 +76,19 @@ class TTTGame {
             return GameResult.draw
         }
         return GameResult.none
+    }
+    
+    func getWinner() -> Int8 {
+        if !gameDidEnd {
+            return -1
+        }
+        // The winner will be the player that is not the current player
+        return currentPlayer == 0 ? 1 : 0
+    }
+    
+    func resetGame() {
+        board = [[-1, -1, -1], [-1, -1, -1], [-1, -1, -1]]
+        currentPlayer = 0
+        gameDidEnd = false
     }
 }

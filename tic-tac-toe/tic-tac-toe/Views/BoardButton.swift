@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct BoardButton: View {
-    var game: TTTGame
+    @ObservedObject var game: TTTGame
     var row: Int
     var col: Int
+    var updateHandler: () -> Void
     
     @State private var buttonText: String = "?"
     
     func idxToString() -> String {
-        print(game.board)
         switch (game.board[row][col]) {
         case 0:
             return "X"
@@ -29,6 +29,7 @@ struct BoardButton: View {
     func handleClick() {
         game.doUpdateTile(row, col)
         buttonText = idxToString()
+        updateHandler()
     }
     
     var body: some View {
@@ -44,6 +45,6 @@ struct BoardButton: View {
 
 struct BoardButton_Previews: PreviewProvider {
     static var previews: some View {
-        BoardButton(game: TTTGame(), row: 0, col: 0)
+        BoardButton(game: TTTGame(), row: 0, col: 0, updateHandler: {})
     }
 }
