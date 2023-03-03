@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum GameCheckState {
+    case Win, Draw, None
+}
+
 class TTTGame: ObservableObject {
     @Published var board: [[Tile]] = []
     @Published var currentPlayer: Tile = Tile.Cross
@@ -37,33 +41,40 @@ class TTTGame: ObservableObject {
         }
         
         board[row][col] = currentPlayer
-        checkForWinnerOrDraw(row, col)
+        let state = checkForWinnerOrDraw(row, col)
         currentPlayer = (currentPlayer == Tile.Cross) ? Tile.Nought : Tile.Cross
+        if state == GameCheckState.Win {
+            resetGame()
+        }
     }
     
-    func checkForWinnerOrDraw(_ row: Int,_ col: Int) {
+    private func checkForWinnerOrDraw(_ row: Int,_ col: Int) -> GameCheckState {
         // Check row and column for winner
         if board[row][0] == board[row][1] && board[row][1] == board[row][2] && board[row][2] == currentPlayer {
             // This player has won
-            return
+            return GameCheckState.Win
         }
         
         if board[0][col] == board[1][col] && board[1][col] == board[2][col] && board[2][col] == currentPlayer {
             // This player has won
-            return
+            return GameCheckState.Win
         }
         
         // Check diagonals for winner
         if board[1][1] == currentPlayer {
-            if board[0][0] == board[1][1] && board[1][1] == board[2][2] {
+            if board[0][0] == board[1][1] && board[1][1] == board[2][2] ||
+                board[0][2] == board[1][1] && board[1][1] == board[2][0] {
                 // This player has won
-                return
-            }
-            
-            if board[0][2] == board[1][1] && board[1][1] == board[2][0] {
-                // This player has won
-                return
+                return GameCheckState.Win
             }
         }
+        
+        // Check for draw
+        if board.map({r in r.contains(Tile.Empty)}) == [false, false, false] {
+            return GameCheckState.Draw
+        }
+        
+        // There is no win or draw
+        return GameCheckState.None
     }
 }
