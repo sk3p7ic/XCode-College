@@ -13,6 +13,7 @@
 		F151E09129B193A800B9D9D3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F151E09029B193A800B9D9D3 /* Preview Assets.xcassets */; };
 		F151E09A29B1943400B9D9D3 /* GameTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F151E09929B1943400B9D9D3 /* GameTile.swift */; };
 		F151E09C29B1947900B9D9D3 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = F151E09B29B1947900B9D9D3 /* Game.swift */; };
+		F1B9F66729B1A1D0003EDA26 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B9F66629B1A1D0003EDA26 /* GameView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		F151E09029B193A800B9D9D3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F151E09929B1943400B9D9D3 /* GameTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTile.swift; sourceTree = "<group>"; };
 		F151E09B29B1947900B9D9D3 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		F1B9F66629B1A1D0003EDA26 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				F151E08B29B193A700B9D9D3 /* ContentView.swift */,
+				F1B9F66629B1A1D0003EDA26 /* GameView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -163,6 +166,7 @@
 				F151E09A29B1943400B9D9D3 /* GameTile.swift in Sources */,
 				F151E08A29B193A700B9D9D3 /* TicTacToeApp.swift in Sources */,
 				F151E09C29B1947900B9D9D3 /* Game.swift in Sources */,
+				F1B9F66729B1A1D0003EDA26 /* GameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

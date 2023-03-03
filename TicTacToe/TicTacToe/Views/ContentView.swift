@@ -12,25 +12,8 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Grid (horizontalSpacing: 4, verticalSpacing: 4){
-                ForEach(0..<3) { row in
-                    GridRow {
-                        ForEach(0..<3) { col in
-                            Text(game.board[row][col].toString())
-                                .font(.largeTitle)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .aspectRatio(1, contentMode: .fit)
-                                .background(.white)
-                                .onTapGesture {
-                                    game.doMove(row, col)
-                                }
-                        }
-                    }
-                }
-            }
+            GameView(game: game)
         }
-        .background(.black)
-        .padding()
     }
 }
 
