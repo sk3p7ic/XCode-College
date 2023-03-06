@@ -14,6 +14,10 @@ enum GameCheckState {
 class TTTGame: ObservableObject {
     @Published var board: [[Tile]] = []
     @Published var currentPlayer: Tile = Tile.Cross
+    @Published var scoreCross: Int8 = 0
+    @Published var scoreNought: Int8 = 0
+    @Published var doShowWinAlert: Bool = false
+    @Published var doShowDrawAlert: Bool = false
     
     init() {
         resetGame()
@@ -42,10 +46,31 @@ class TTTGame: ObservableObject {
         
         board[row][col] = currentPlayer
         let state = checkForWinnerOrDraw(row, col)
-        currentPlayer = (currentPlayer == Tile.Cross) ? Tile.Nought : Tile.Cross
         if state == GameCheckState.Win {
+            if currentPlayer == Tile.Cross {
+                scoreCross += 1
+            }
+            else {
+                scoreNought += 1
+            }
             resetGame()
+            doShowWinAlert = true
         }
+        else if state == GameCheckState.Draw {
+            resetGame()
+            doShowDrawAlert = true
+        }
+        else {
+            currentPlayer = (currentPlayer == Tile.Cross) ? Tile.Nought : Tile.Cross
+        }
+    }
+    
+    func getCurrentPlayer() -> String {
+        return "Current Player: " + ((currentPlayer == Tile.Cross) ? "X" : "O")
+    }
+    
+    func getWinnerText() -> String {
+        return currentPlayer == Tile.Cross ? "X Wins!" : "O Wins!"
     }
     
     private func checkForWinnerOrDraw(_ row: Int,_ col: Int) -> GameCheckState {
