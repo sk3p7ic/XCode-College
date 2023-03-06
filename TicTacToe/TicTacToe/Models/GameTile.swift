@@ -19,7 +19,7 @@ enum Tile {
         case .Nought:
             return "O"
         case .Empty:
-            return "?"
+            return " "
         }
     }
 }
