@@ -26,11 +26,8 @@ struct ContentView: View {
             Text(game.getCurrentPlayer())
             Spacer()
         }
-        .alert(isPresented: $game.doShowWinAlert) {
-            Alert(title: Text(game.getWinnerText()), dismissButton: .default(Text("New Game")))
-        }
-        .alert(isPresented: $game.doShowDrawAlert) {
-            Alert(title: Text("This game's a draw!"), dismissButton: .default(Text("New Game")))
+        .alert(isPresented: $game.doShowameEndAlert) {
+            Alert(title: Text(game.gameEndAlertText), dismissButton: .default(Text("New Game")))
         }
     }
 }

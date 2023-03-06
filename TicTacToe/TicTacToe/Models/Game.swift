@@ -16,8 +16,8 @@ class TTTGame: ObservableObject {
     @Published var currentPlayer: Tile = Tile.Cross
     @Published var scoreCross: Int8 = 0
     @Published var scoreNought: Int8 = 0
-    @Published var doShowWinAlert: Bool = false
-    @Published var doShowDrawAlert: Bool = false
+    @Published var doShowameEndAlert: Bool = false
+    @Published var gameEndAlertText: String = ""
     
     init() {
         resetGame()
@@ -46,19 +46,23 @@ class TTTGame: ObservableObject {
         
         board[row][col] = currentPlayer
         let state = checkForWinnerOrDraw(row, col)
-        if state == GameCheckState.Win {
-            if currentPlayer == Tile.Cross {
-                scoreCross += 1
+        if state == GameCheckState.Win || state == GameCheckState.Draw {
+            if state != GameCheckState.Draw {
+                if currentPlayer == Tile.Cross {
+                    scoreCross += 1
+                }
+                else {
+                    scoreNought += 1
+                }
+            }
+            doShowameEndAlert = true
+            if state == GameCheckState.Win {
+                gameEndAlertText = ((currentPlayer == Tile.Cross) ? "X Wins!" : "O Wins!")
             }
             else {
-                scoreNought += 1
+                gameEndAlertText = "This game's a draw!"
             }
             resetGame()
-            doShowWinAlert = true
-        }
-        else if state == GameCheckState.Draw {
-            resetGame()
-            doShowDrawAlert = true
         }
         else {
             currentPlayer = (currentPlayer == Tile.Cross) ? Tile.Nought : Tile.Cross
@@ -67,10 +71,6 @@ class TTTGame: ObservableObject {
     
     func getCurrentPlayer() -> String {
         return "Current Player: " + ((currentPlayer == Tile.Cross) ? "X" : "O")
-    }
-    
-    func getWinnerText() -> String {
-        return currentPlayer == Tile.Cross ? "X Wins!" : "O Wins!"
     }
     
     private func checkForWinnerOrDraw(_ row: Int,_ col: Int) -> GameCheckState {
