@@ -19,7 +19,7 @@ struct ContentView: View {
                 Spacer()
                 Text("X Score: \(game.scoreCross)")
                 Spacer()
-                Text("Y Score: \(game.scoreNought)")
+                Text("O Score: \(game.scoreNought)")
                 Spacer()
             }
             GameView(game: game)
